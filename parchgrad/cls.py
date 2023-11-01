@@ -5,8 +5,8 @@ import torch.nn.functional as F
 
 class ParchGradCLS(ParchGradBase):
     def __init__(self, model, **kwargs):
-        super().__init__(self, model, **kwargs)
-        self.mask_function = make_mask_function()
+        super().__init__(model, **kwargs)
+        self.mask_function = self.make_mask_function()
         self.convolutions = None 
         self.mean = None 
         self.shapiro = None 

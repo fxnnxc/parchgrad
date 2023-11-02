@@ -26,7 +26,7 @@ class ParchGradCLS(ParchGradBase):
     def make_mask_function(self):
         def mask_function(module, sample_idx, **kwargs):
             # ---- required values 
-            cls_p_values = module.cls_p_values[:,kwargs.get("cls")[sample_idx]] # cls only for the first c
+            cls_p_values = module.cls_p_values[:,kwargs.get("cls")[0]] # cls only for the first c
             # ----
             
             if kwargs.get("quantile") is not None:

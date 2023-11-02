@@ -3,12 +3,17 @@
 data_path=/data/ImageNet1k
 bbox_path=/data/ILSVRC2012_bbox_val
 
-input_attrib=grad
+input_attrib=ig
 quantile=0.1
 alpha=1e-10 # not used because of quantile 
 p_value_threshold=0.05
 layer_ratio=0.5
 method=cls
+
+export MKL_NUM_THREADS=2
+export NUMEXPR_NUM_THREADS=2
+export OMP_NUM_THREADS=2
+
 
 for encoder in resnet18 vgg16 efficient_b0 # convnext_tiny
 do

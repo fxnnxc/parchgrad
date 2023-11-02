@@ -3,18 +3,17 @@ import scipy.stats
 import torch.nn.functional as F 
 
 def general_forward_hook(module, input, output):
-    assert input[0].size(0) == 1
     module.output = output
-    
-    output = F.relu(output.clone().detach())
-    hw = output.size(-1) * output.size(-2)
-    # temp = output.clone().detach()
+    if input[0].size(0) == 1:
+        output = F.relu(output.clone().detach())
+        hw = output.size(-1) * output.size(-2)
+        # temp = output.clone().detach()
 
-    gap = F.adaptive_avg_pool2d(output, output_size=1)[0,:,0,0]
-    num_relu = (output>0).view(gap.size(0), -1).sum()
-    module.relu_ratio = num_relu/hw
-    module.relu_position = input[0]>0
-    module.gap = gap
+        gap = F.adaptive_avg_pool2d(output, output_size=1)[0,:,0,0]
+        num_relu = (output>0).view(gap.size(0), -1).sum()
+        module.relu_ratio = num_relu/hw
+        module.relu_position = input[0]>0
+        module.gap = gap
     
 
 

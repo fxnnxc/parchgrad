@@ -20,7 +20,7 @@ def ig(wrapper, x, y, **kwargs):
     X = Variable(X, requires_grad=True).to(device)
     X.retain_grad()
     
-    output = wrapper.forward(x, **kwargs)
+    output = wrapper.forward(X, **kwargs)
     score = torch.softmax(output, dim=-1)
     class_score = torch.FloatTensor(X.size(0), output.size()[-1]).zero_().to("cuda").type(X.dtype)
     class_score[:,y] = score[:,y]

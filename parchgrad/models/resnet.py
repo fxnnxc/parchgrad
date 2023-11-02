@@ -4,26 +4,15 @@ from parchgrad.ins import ParchGradINS
 
 class ResNetParchGrad():
     def __init__(self, model, **kwargs):
-        self.convolutions = [] 
-        self.convolutions.append(self.model.conv1)
-        for layer in [self.model.layer1, self.model.layer2, self.model.layer3, self.model.layer4]:        
-            for basic_block in layer:
-                for name in ['conv1', 'conv2', 'conv3']:
-                    if hasattr(basic_block, name):
-                        self.convolutions.append(getattr(basic_block, name))
+
+        self.resize, self.crop = (256, 224)
         
-                
-    def set_hook_modules(self, **kwargs):
-        while len(self.hook_modules):
-            self.hook_modules.pop()
-        for layer in [self.model.layer3, self.model.layer4]:
-            for basic_block in layer:
-                for name in ['conv1', 'conv2', 'conv3']:
-                    if hasattr(basic_block, name):
-                        conv = getattr(basic_block, name)
-                        self.hook_modules.append(conv)
+        self.all_convolutions = []
+        for m in model.modules():
+            if m.__class__.__name__ ==  'Conv2d':
+                self.all_convolutions.append(m)
         
-        
+            
 class ResNetParchGradINS(ParchGradINS, ResNetParchGrad):
     def __init__(self, model, **kwargs):
         ParchGradINS.__init__(self, model, **kwargs)

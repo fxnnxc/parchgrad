@@ -8,6 +8,10 @@ class ParchGradBase:
         self.hook_modules = [] 
         self.mask_function = None 
         
+        print("We set all module's inplace=False")
+        for m in self.model.modules():
+            m.inplace = False
+        
     def _remove_hook(self):
         while len(self.bw_hooks):
             self.bw_hooks.pop().remove()
@@ -15,7 +19,7 @@ class ParchGradBase:
             self.fw_hooks.pop().remove()
  
      
-    def _register_hook(self, modify_gradient, **kwargs):
+    def _register_hook(self, modify_gradient, mask_function, **kwargs):
         for conv in self.hook_modules:
             self.fw_hooks.append(
                 conv.register_forward_hook(
@@ -25,13 +29,17 @@ class ParchGradBase:
             self.bw_hooks.append(
                 conv.register_full_backward_hook(
                     make_backward_hook(
-                        modify_gradient, **kwargs
+                        modify_gradient, mask_function, **kwargs
                     )
                 )
             )
-                                                                                                    
-    def set_hook_modules(self):
-        raise NotImplementedError()
+            
+    def set_hook_modules(self, modules, **kwargs):
+        while len(self.hook_modules):
+            self.hook_modules.pop()
+        for m in modules:
+            self.hook_modules.append(m)
+            print(f"  hooked:{m}")
     
     def prepare_parchgrad(self, **kwargs):
         # setting everything required before running parchgrad

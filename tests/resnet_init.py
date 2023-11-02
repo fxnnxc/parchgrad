@@ -8,3 +8,9 @@ wrapper1 = ResNetParchGradINS(model)
 wrapper2 = ResNetParchGradCLS(model)
 
 wrapper1.prepare_parchgrad(None, None, None, None)
+
+import torch 
+x = torch.randn(1, 3, 224, 224)
+
+output = wrapper1(x)
+print(output)

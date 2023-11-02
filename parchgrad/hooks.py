@@ -3,13 +3,15 @@ import scipy.stats
 import torch.nn.functional as F 
 
 def general_forward_hook(module, input, output):
-    assert input.size(0) == 1
-    output = F.relu(output)
+    assert input[0].size(0) == 1
+    module.output = output
+    
+    output = F.relu(output.clone().detach())
     hw = output.size(-1) * output.size(-2)
     # temp = output.clone().detach()
 
     gap = F.adaptive_avg_pool2d(output, output_size=1)[0,:,0,0]
-    num_relu = (output>0).view(gap.size(0), -1).sum(dim=-1).item()
+    num_relu = (output>0).view(gap.size(0), -1).sum()
     module.relu_ratio = num_relu/hw
     module.relu_position = input[0]>0
     module.gap = gap
@@ -18,7 +20,7 @@ def general_forward_hook(module, input, output):
 
 def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, variance_conservation=True, exact_variance=False, **kwargs):
     def backward_conv2d_hook(module, grad_inputs, grad_outputs):
-        # modify gradient signals 
+        #modify gradient signals 
         if modify_gradient:
             B = grad_outputs[0].size(0)
             for i in range(B):
@@ -52,8 +54,7 @@ def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, vari
                             grad_outputs[0][i,h_mask,:,:] *= gamma_hat * beta
                             grad_outputs[0][i,l_mask,:,:] *= beta
             
-        new_grad_inputs = torch.nn.grad.conv2d_input(grad_inputs[0].shape, module.weight, grad_outputs[0],
-                        stride=module.stride, padding=module.padding, dilation=module.dilation, groups=module.groups)
-
-        return [new_grad_inputs]
+        grad_inputs = [torch.nn.grad.conv2d_input(grad_inputs[0].shape, module.weight, grad_outputs[0],
+                        stride=module.stride, padding=module.padding, dilation=module.dilation, groups=module.groups)]
+        return grad_inputs
     return backward_conv2d_hook

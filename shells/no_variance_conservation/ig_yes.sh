@@ -3,7 +3,7 @@
 data_path=/data/ImageNet1k
 bbox_path=/data/ILSVRC2012_bbox_val
 
-input_attrib=grad
+input_attrib=ig
 quantile=0.1
 alpha=1e-10 # not used because of quantile 
 p_value_threshold=0.05
@@ -17,7 +17,7 @@ for encoder in resnet18 vgg16 efficient_b0 # convnext_tiny
 do
 for layer_ratio in 0.5 0.9 
 do 
-for variance_conservation in False True
+for variance_conservation in True
 do
     python labs/evaluate_attribution/run.py \
             --encoder $encoder \

@@ -17,7 +17,7 @@ for encoder in resnet18 vgg16 efficient_b0 # convnext_tiny
 do
 for layer_ratio in 0.5 0.9 
 do 
-for variance_conservation in False True
+for variance_conservation in False
 do
     python labs/evaluate_attribution/run.py \
             --encoder $encoder \

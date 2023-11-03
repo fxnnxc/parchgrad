@@ -15,7 +15,7 @@ export OMP_NUM_THREADS=2
 
 for encoder in resnet18 vgg16 efficient_b0 # convnext_tiny
 do
-for layer_ratio in 0.5 0.9 
+for layer_ratio in 1.0 # 0.5 0.9 
 do 
 for variance_conservation in False 
 do
@@ -28,7 +28,8 @@ do
             --p-value-threshold $p_value_threshold \
             --quantile $quantile \
             --layer-ratio $layer_ratio \
-            --variance-conservation $variance_conservation
+            --variance-conservation $variance_conservation \
+            --fixed-samples 1000
 done 
 done 
 done 

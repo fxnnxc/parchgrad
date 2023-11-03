@@ -1,6 +1,6 @@
 
 def compute_in_out_ratio(R, xmin, xmax, ymin, ymax):
-    assert R.min() >=0
+    assert R.min() >=0, f"{R.min()}"
     full_size = R.size(0) * R.size(1)
     size_in = (xmax- xmin) * (ymax- ymin)
     size_out = full_size - size_in

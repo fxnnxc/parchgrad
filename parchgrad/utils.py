@@ -51,7 +51,7 @@ def is_there_same_flag(base_dir, flag):
             for k, v in loaded_flag.items():
                 if k =="success":
                     continue 
-                if getattr(flag, k) != v:
+                if k != "fixed_samples" and getattr(flag, k) != v:
                     is_same_flag = False 
             if is_same_flag:
                 return True 

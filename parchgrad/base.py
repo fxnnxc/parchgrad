@@ -19,13 +19,14 @@ class ParchGradBase:
             self.fw_hooks.pop().remove()
  
      
-    def _register_hook(self, modify_gradient, mask_function, **kwargs):
+    def _register_hook(self, modify_gradient, mask_function, enable_forward_hook=True, **kwargs):
         for conv in self.hook_modules:
-            self.fw_hooks.append(
-                conv.register_forward_hook(
-                    general_forward_hook
-                    )
-            )
+            if enable_forward_hook:
+                self.fw_hooks.append(
+                    conv.register_forward_hook(
+                        general_forward_hook
+                        )
+                )
             self.bw_hooks.append(
                 conv.register_full_backward_hook(
                     make_backward_hook(

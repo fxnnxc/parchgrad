@@ -7,17 +7,17 @@ input_attrib=ig
 quantile=0.1
 alpha=1e-10 # not used because of quantile 
 p_value_threshold=0.05
-layer_ratio=0.9
 method=cls
 
 export MKL_NUM_THREADS=2
 export NUMEXPR_NUM_THREADS=2
 export OMP_NUM_THREADS=2
 
-
 for encoder in resnet18 vgg16 efficient_b0 # convnext_tiny
 do
-for variance_conservation in False 
+for layer_ratio in 0.5 0.9 
+do 
+for variance_conservation in False True
 do
     python labs/evaluate_attribution/run.py \
             --encoder $encoder \
@@ -29,6 +29,7 @@ do
             --quantile $quantile \
             --layer-ratio $layer_ratio \
             --variance-conservation $variance_conservation
+done 
 done 
 done 
 done 

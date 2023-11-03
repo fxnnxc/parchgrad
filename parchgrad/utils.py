@@ -1,6 +1,7 @@
 import torch 
 import numpy as np 
 import scipy.stats as stats
+import os 
 
 def k_th_quantile(tensor, quantile):
     # return the quantile value of a tensor
@@ -34,3 +35,25 @@ def shapiro(pop):
     if np.isnan(output['p_value']):
         output['p_value'] = 1
     return output
+
+
+from tqdm import tqdm 
+from omegaconf import OmegaConf
+
+def is_there_same_flag(base_dir, flag):
+    is_same_flag=False 
+    for root, dirs, files in tqdm(os.walk(base_dir)):
+        is_same_flag = True 
+        if 'config.yaml' in files:
+            loaded_flag = OmegaConf.load(os.path.join(root, 'config.yaml'))
+            if not loaded_flag.success: 
+                continue
+            for k, v in loaded_flag.items():
+                if k =="success":
+                    continue 
+                if getattr(flag, k) != v:
+                    is_same_flag = False 
+            if is_same_flag:
+                return True 
+                    
+    return False 

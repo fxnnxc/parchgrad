@@ -5,7 +5,7 @@ from parchgrad.datasets import get_default_transform
 from parchgrad.datasets import IMAGENET_MEAN, IMAGENET_STD, get_datasets
 from parchgrad.attribution_methods import get_input_attrib
 from parchgrad.bbox.bbox_dataset import BBDataset
-
+from parchgrad.utils import is_there_same_flag
 from parchgrad.metric.evaluate_attribution_all import evaluate_attribution_all
 import argparse
 import os 
@@ -45,6 +45,11 @@ if not os.path.exists(save_dir):
 
 flags = OmegaConf.create(vars(args))
 flags.success = False 
+
+if is_there_same_flag(base_dir, flags):
+    print("[FAIL] There is success state with the exactly same flag")
+    print("---------------------------------------------------------")
+    exit()
 OmegaConf.save(flags, os.path.join(save_dir, 'config.yaml'))
 print(flags)
 
@@ -85,7 +90,8 @@ for index in pbar:
                         p_value_threshold=flags.p_value_threshold,
                         variance_conservation=flags.variance_conservation,
                         exact_variance=flags.exact_variance,
-                        gamma_infinity=flags.gamma_infinity
+                        gamma_infinity=flags.gamma_infinity,
+                        enable_forward_hook=True if flags.method == 'ins' else False, 
                         )
     
     img, info = ds[index]
@@ -96,7 +102,7 @@ for index in pbar:
         attr=attr,
         device=args.device,
         bbox=info['bbox'],
-        ratios=[0, 0.1, 0.2,0.3,0.4,0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        ratios=[0, 0.1, 0.2,0.3,0.4,0.5]
     )
     full_results[index] = sample_results
     duration = time.strftime("%H:%M:%S", time.gmtime(time.time()-start_time))         

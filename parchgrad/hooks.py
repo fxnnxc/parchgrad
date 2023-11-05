@@ -16,7 +16,7 @@ def general_forward_hook(module, input, output):
         module.gap = gap
     
 
-
+import math 
 def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, variance_conservation=True, exact_variance=False, **kwargs):
     def backward_conv2d_hook(module, grad_inputs, grad_outputs):
         #modify gradient signals 
@@ -29,11 +29,11 @@ def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, vari
                 module.num_H = h_mask.sum().item()
                 
                 if module.num_H  !=0 and module.num_L!=0:
-                    M = grad_outputs[0][i,h_mask,:,:].sum(dim=0).var().item() + 1e-7
-                    N = grad_outputs[0][i,l_mask,:,:].sum(dim=0).var().item() + 1e-7
+                    M = grad_outputs[0][i,h_mask,:,:].sum(dim=0).var().item() + 1e-13
+                    N = grad_outputs[0][i,l_mask,:,:].sum(dim=0).var().item() + 1e-13
                     if gamma_infinity:
                         if variance_conservation:
-                            beta = ((M+N)/(M))**(1/2) 
+                            beta = math.sqrt((M+N)/(M))
                         else:
                             beta = 1.0
                         grad_outputs[0][i,h_mask,:,:] *= beta 
@@ -47,7 +47,7 @@ def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, vari
                             grad_outputs[0][i,:,:,:] *= std_temp / std_temp2
                         else:
                             if variance_conservation:
-                                beta = ((M+N)/(M*(gamma_hat**2)+N))**(1/2)
+                                beta = math.sqrt((M+N)/(M*(gamma_hat**2)+N))
                             else:
                                 beta = 1.0
                             grad_outputs[0][i,h_mask,:,:] *= gamma_hat * beta

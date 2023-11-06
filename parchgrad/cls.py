@@ -34,6 +34,8 @@ class ParchGradCLS(ParchGradBase):
                 alpha = torch.kthvalue(cls_p_values, feasible_n, keepdim=True).values.item()
 
             h_mask = (cls_p_values <= alpha) *  (module.shapiro < kwargs.get("p_value_threshold")) # * (gap > mean) # This is unessary if we use alternative H1 greater in p_values
+            if h_mask.sum()==0:
+                h_mask = h_mask.fill_(True)
             l_mask = ~h_mask
             return l_mask, h_mask  
         

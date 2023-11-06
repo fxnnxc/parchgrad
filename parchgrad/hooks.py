@@ -29,11 +29,17 @@ def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, vari
                 module.num_H = h_mask.sum().item()
                 
                 if module.num_H  !=0 and module.num_L!=0:
-                    M = grad_outputs[0][i,h_mask,:,:].sum(dim=0).var().item() + 1e-13
-                    N = grad_outputs[0][i,l_mask,:,:].sum(dim=0).var().item() + 1e-13
+                    if grad_outputs[0][i,:,:,:].size(-1) == 1:
+                        M = grad_outputs[0][i,h_mask,:,:].sum(dim=0).abs().item() + 1e-13
+                        N = grad_outputs[0][i,l_mask,:,:].sum(dim=0).abs().item() + 1e-13
+                    else:
+                        M = grad_outputs[0][i,h_mask,:,:].sum(dim=0).var().item() + 1e-13
+                        N = grad_outputs[0][i,l_mask,:,:].sum(dim=0).var().item() + 1e-13
                     if gamma_infinity:
                         if variance_conservation:
                             beta = math.sqrt((M+N)/(M))
+                            print(M, N, beta)
+                            
                         else:
                             beta = 1.0
                         grad_outputs[0][i,h_mask,:,:] *= beta 

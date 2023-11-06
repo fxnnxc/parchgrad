@@ -10,7 +10,7 @@ class ParchGradINS(ParchGradBase):
         super().__init__(model, **kwargs)
         self.mask_function = self.make_mask_function()
         
-    def prepare_parchgrad(self, base_directory,  device, **kwargs):
+    def prepare_parchgrad(self, base_directory,  device, verbose=0, **kwargs):
         mean = pickle.load(open(os.path.join(base_directory, 'pickles/gap_mean.pkl'), 'rb'))
         std  = pickle.load(open(os.path.join(base_directory, 'pickles/gap_std.pkl'), 'rb'))
         shapiro = pickle.load(open(os.path.join(base_directory, 'pickles/shapiro_p_values.pkl'), 'rb')) 
@@ -19,7 +19,8 @@ class ParchGradINS(ParchGradBase):
             conv.mean = mean.pop(0).to(device)
             conv.std = std.pop(0).to(device)
             conv.shapiro = shapiro.pop(0).to(device)    
-            print(f"mean, std, and shapiro are registered to {conv}")
+            if verbose>0:
+                print(f"mean, std, and shapiro are registered to {conv}")
         
     def make_mask_function(self):
         def mask_function(module, sample_idx, **kwargs):

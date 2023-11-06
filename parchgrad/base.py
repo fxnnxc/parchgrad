@@ -35,12 +35,13 @@ class ParchGradBase:
                 )
             )
             
-    def set_hook_modules(self, modules, **kwargs):
+    def set_hook_modules(self, modules, verbose=0, **kwargs):
         while len(self.hook_modules):
             self.hook_modules.pop()
         for m in modules:
             self.hook_modules.append(m)
-            print(f"  hooked:{m}")
+            if verbose>0:
+                print(f"  hooked:{m}")
     
     def prepare_parchgrad(self, **kwargs):
         # setting everything required before running parchgrad

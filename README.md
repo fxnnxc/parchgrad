@@ -1,34 +1,14 @@
-| name  |morf_aopc | morf_lodds | morf_fracdiff | morf_acc | lerf_aopc | lerf_lodds | lerf_fracdiff | lerf_acc | mu_in | mu_in_w | 
-|---| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
-encoder_resnet18_cls_grad_ratio_0.3_quantile_0.05_vc_False | 0.075 | -5.991 | 0.075 | 0.167 | 0.075 | -3.987 | 0.075 | 0.167 | 0.501 | 0.893 | 
-encoder_resnet18_cls_grad_ratio_0.3_quantile_0.05_vc_True | 0.075 | -6.262 | 0.075 | 0.167 | 0.075 | -3.983 | 0.075 | 0.167 | 0.515 | 0.922 | 
-encoder_resnet18_cls_grad_ratio_0.3_quantile_0.1_vc_False | 0.075 | -5.780 | 0.075 | 0.167 | 0.074 | -3.715 | 0.074 | 0.167 | 0.509 | 0.915 | 
-encoder_resnet18_cls_grad_ratio_0.3_quantile_0.1_vc_True | 0.075 | -4.926 | 0.075 | 0.167 | 0.075 | -4.753 | 0.075 | 0.167 | 0.517 | 0.931 | 
-encoder_resnet18_cls_grad_ratio_0.5_quantile_0.05_vc_False | 0.075 | -6.211 | 0.075 | 0.167 | 0.074 | -3.616 | 0.074 | 0.167 | 0.502 | 0.892 | 
-encoder_resnet18_cls_grad_ratio_0.5_quantile_0.05_vc_True | 0.075 | -5.602 | 0.075 | 0.167 | 0.074 | -4.060 | 0.074 | 0.167 | 0.515 | 0.920 | 
-encoder_resnet18_cls_grad_ratio_0.5_quantile_0.1_vc_False | 0.075 | -6.242 | 0.075 | 0.167 | 0.074 | -4.493 | 0.074 | 0.167 | 0.511 | 0.919 | 
-encoder_resnet18_cls_grad_ratio_0.5_quantile_0.1_vc_True | 0.075 | -5.221 | 0.075 | 0.167 | 0.074 | -3.761 | 0.074 | 0.167 | 0.517 | 0.931 | 
-encoder_resnet18_cls_grad_ratio_0.9_quantile_0.05_vc_False | 0.075 | -6.355 | 0.075 | 0.167 | 0.073 | -3.616 | 0.073 | 0.167 | 0.506 | 0.907 | 
-encoder_resnet18_cls_grad_ratio_0.9_quantile_0.05_vc_True | 0.075 | -5.869 | 0.075 | 0.167 | 0.075 | -4.182 | 0.075 | 0.167 | 0.519 | 0.926 | 
-encoder_resnet18_cls_grad_ratio_0.9_quantile_0.1_vc_False | 0.075 | -6.630 | 0.075 | 0.167 | 0.071 | -3.351 | 0.071 | 0.167 | 0.517 | 0.936 | 
-encoder_resnet18_cls_grad_ratio_0.9_quantile_0.1_vc_True | 0.075 | -5.782 | 0.075 | 0.167 | 0.062 | -3.230 | 0.062 | 0.167 | 0.521 | 0.938 | 
-encoder_resnet18_cls_grad_ratio_1.0_quantile_0.05_vc_False | 0.075 | -6.185 | 0.075 | 0.167 | 0.074 | -3.850 | 0.074 | 0.167 | nan | nan | 
-encoder_resnet18_cls_grad_ratio_1.0_quantile_0.05_vc_True | 0.075 | -5.000 | 0.075 | 0.167 | 0.075 | -4.368 | 0.075 | 0.167 | nan | nan | 
-encoder_resnet18_cls_grad_ratio_1.0_quantile_0.1_vc_False | 0.075 | -6.196 | 0.075 | 0.167 | 0.074 | -3.864 | 0.074 | 0.167 | 0.517 | 0.935 | 
-encoder_resnet18_cls_grad_ratio_1.0_quantile_0.1_vc_True | 0.075 | -5.212 | 0.075 | 0.167 | 0.075 | -4.344 | 0.075 | 0.167 | 0.522 | 0.938 | 
-encoder_vgg16_cls_grad_ratio_0.3_quantile_0.05_vc_False | 0.230 | -3.554 | 0.230 | 0.167 | 0.167 | -2.571 | 0.167 | 0.500 | 0.527 | 0.954 | 
-encoder_vgg16_cls_grad_ratio_0.3_quantile_0.05_vc_True | 0.230 | -3.554 | 0.230 | 0.167 | 0.167 | -2.571 | 0.167 | 0.500 | 0.527 | 0.954 | 
-encoder_vgg16_cls_grad_ratio_0.3_quantile_0.1_vc_False | 0.234 | -4.710 | 0.234 | 0.167 | 0.204 | -2.625 | 0.204 | 0.333 | 0.526 | 0.953 | 
-encoder_vgg16_cls_grad_ratio_0.3_quantile_0.1_vc_True | 0.234 | -4.710 | 0.234 | 0.167 | 0.204 | -2.625 | 0.204 | 0.333 | 0.526 | 0.953 | 
-encoder_vgg16_cls_grad_ratio_0.5_quantile_0.05_vc_False | 0.233 | -4.150 | 0.233 | 0.167 | 0.189 | -2.840 | 0.189 | 0.333 | 0.528 | 0.959 | 
-encoder_vgg16_cls_grad_ratio_0.5_quantile_0.05_vc_True | 0.233 | -4.150 | 0.233 | 0.167 | 0.189 | -2.840 | 0.189 | 0.333 | 0.528 | 0.959 | 
-encoder_vgg16_cls_grad_ratio_0.5_quantile_0.1_vc_False | 0.233 | -4.378 | 0.233 | 0.167 | 0.162 | -2.091 | 0.162 | 0.500 | 0.527 | 0.955 | 
-encoder_vgg16_cls_grad_ratio_0.5_quantile_0.1_vc_True | 0.233 | -4.378 | 0.233 | 0.167 | 0.162 | -2.091 | 0.162 | 0.500 | 0.527 | 0.955 | 
-encoder_vgg16_cls_grad_ratio_0.9_quantile_0.05_vc_False | 0.234 | -5.663 | 0.234 | 0.167 | 0.232 | -4.898 | 0.232 | 0.167 | 0.530 | 0.962 | 
-encoder_vgg16_cls_grad_ratio_0.9_quantile_0.05_vc_True | 0.234 | -5.663 | 0.234 | 0.167 | 0.232 | -4.898 | 0.232 | 0.167 | 0.530 | 0.962 | 
-encoder_vgg16_cls_grad_ratio_0.9_quantile_0.1_vc_False | 0.234 | -5.185 | 0.234 | 0.167 | 0.230 | -3.485 | 0.230 | 0.167 | 0.530 | 0.959 | 
-encoder_vgg16_cls_grad_ratio_0.9_quantile_0.1_vc_True | 0.234 | -5.185 | 0.234 | 0.167 | 0.230 | -3.485 | 0.230 | 0.167 | 0.530 | 0.959 | 
-encoder_vgg16_cls_grad_ratio_1.0_quantile_0.05_vc_False | 0.219 | -2.949 | 0.219 | 0.167 | 0.099 | -0.505 | 0.099 | 0.500 | nan | nan | 
-encoder_vgg16_cls_grad_ratio_1.0_quantile_0.05_vc_True | 0.219 | -2.949 | 0.219 | 0.167 | 0.099 | -0.505 | 0.099 | 0.500 | nan | nan | 
-encoder_vgg16_cls_grad_ratio_1.0_quantile_0.1_vc_False | 0.215 | -2.667 | 0.215 | 0.167 | -0.034 | 0.049 | 0.096 | 0.833 | nan | nan | 
-encoder_vgg16_cls_grad_ratio_1.0_quantile_0.1_vc_True | 0.215 | -2.667 | 0.215 | 0.167 | -0.034 | 0.049 | 0.096 | 0.833 | nan | nan | 
+# Partitioned Channel Gradient for Reliable Input Attribution 
+
+
+## Requirements 
+
+ParchGrad uses statistics for the 
+
+```bash 
+export encoder=resnet18
+bash shells/compute_stats.sh
+```
+
+## Computation of CLS p-values 
+

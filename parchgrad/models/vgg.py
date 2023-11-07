@@ -12,10 +12,22 @@ class VGGParchGrad():
             if m.__class__.__name__ ==  'Conv2d':
                 self.all_convolutions.append(m)
 
-    def get_default_hook_convolutions(self, layer_ratio=0.5):
-        remove_n = len(self.all_convolutions) -  int(layer_ratio * len(self.all_convolutions))
-        selected_convolutions = self.all_convolutions[remove_n:]
-        return selected_convolutions        
+    def get_default_hook_convolutions(self, layer_ratio=None):
+        if layer_ratio is not None:
+            remove_n = len(self.all_convolutions) -  int(layer_ratio * len(self.all_convolutions))
+            selected_convolutions = self.all_convolutions[remove_n:]
+        else:
+            selected_convolutions = []
+            num = len(self.model.features)
+            start_num = int(num*0.5)
+            print("[INFO] hook upper half convolutions")
+            for n in range(start_num, num):
+                layer=self.model.features[n]
+                if layer.__class__.__name__ == "Conv2d":
+                    selected_convolutions.append(layer)
+        return selected_convolutions 
+    
+     
             
 class VGGParchGradINS(ParchGradINS, VGGParchGrad):
     def __init__(self, model, **kwargs):

@@ -1,9 +1,9 @@
 # Partitioned Channel Gradient for Reliable Input Attribution 
 
+
 <center>
 <img src="https://drive.google.com/uc?export=view&id=1kJwgA-XPdP0k3cd60R8H7jdqtgLbLJ44" width=500px > 
 </center>
-
 
 ## Tutorials 
 
@@ -49,8 +49,7 @@ attr = input_attrib(wrapper, x, y,
 ```
 
 
-
-## Requirements for Custom Model 
+## Custom Model 
 
 ### 1. Activations must be gathered to select important channels
 
@@ -61,12 +60,7 @@ bash shells/compute_stats.sh
  
 ### 2. Setting convoultional layers to be hooked. 
 
-
-
 ### 3. Run ParchGrad! 
-
-
-
 
 
 ## Computation of CLS p-values 

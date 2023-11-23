@@ -1,14 +1,22 @@
 # Partitioned Channel Gradient for Reliable Input Attribution 
+*Bumjin Park, Giyeong Jeon, and Jaesik Choi, 2023* 
 
-<center>
-<img src="https://drive.google.com/uc?export=view&id=1kJwgA-XPdP0k3cd60R8H7jdqtgLbLJ44" width=500px > 
-</center>
+<p align="center">
+<img align="center" src="https://drive.google.com/uc?export=view&id=1kJwgA-XPdP0k3cd60R8H7jdqtgLbLJ44" width=50% > 
+</p>
 
-<img src="labs/visualize/797.gif">
-<img src="labs/visualize/7012.gif">
-<img src="labs/visualize/9359.gif">
-<img src="labs/visualize/16298.gif">
-<img src="labs/visualize/24152.gif">
+## Selected Visualziations 
+
+<div style="border:1px solid #DDDDFF;border-radius:10px;padding:10px;" >
+<p align="center" >
+<img src="labs/visualize/13220.gif" width=50%>
+<img src="labs/visualize/797.gif" width=50%>
+<img src="labs/visualize/7012.gif" width=50%>
+<img src="labs/visualize/9359.gif" width=50%>
+<img src="labs/visualize/16298.gif" width=50%>
+<img src="labs/visualize/24152.gif" width=50%>
+</p>
+</div>
 
 ## Tutorials 
 

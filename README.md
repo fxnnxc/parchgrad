@@ -7,12 +7,12 @@
 
 ## Selected Visualziations 
 
-<div style="border:solid 2px #000000; border-radius:10px;" >
+<div style="border:1px solid #DDDDFF;border-radius:10px;padding:10px;" >
 <p align="center" >
 <img src="labs/visualize/797.gif" width=50%>
 <img src="labs/visualize/7012.gif" width=50%>
 <img src="labs/visualize/9359.gif" width=50%>
-<img src="labs/visualize/16298.gif" width=50% >
+<img src="labs/visualize/16298.gif" width=50%>
 <img src="labs/visualize/24152.gif" width=50%>
 </p>
 </div>

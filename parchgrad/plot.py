@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np 
 from matplotlib.colors import ListedColormap
 from tqdm import tqdm 
+import cv2 
+from PIL import Image
+
 
 def process_heatmap(R, my_cmap=plt.cm.seismic(np.arange(plt.cm.seismic.N))):
     power = 1.0
@@ -12,7 +15,7 @@ def process_heatmap(R, my_cmap=plt.cm.seismic(np.arange(plt.cm.seismic.N))):
     return (R, {"cmap":my_cmap, "vmin":-b, "vmax":b, "interpolation":'nearest'} )
     
 
-def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels, index, axes,  quantiles, device, flags, save_ax=None):
+def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels, index, axes,  quantiles, device, flags):
     x = valid_dataset[index][0].to(device)
     y = valid_dataset[index][1]
     cls = torch.tensor([y])
@@ -32,9 +35,6 @@ def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels
     y = torch.tensor(valid_dataset[index][1]).to(device).unsqueeze(0)
     for i, wrapper in enumerate([wrapper]):
         my_cmap=plt.cm.seismic(np.arange(plt.cm.seismic.N))
-        if save_ax is not None:
-            save_ax[0].imshow(x_img.permute(1,2,0))
-        
         for j, quantile in tqdm(enumerate(quantiles)):
             flags.quantile = quantile
             attr = input_attrib(wrapper, x, y, 
@@ -53,22 +53,7 @@ def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels
             ax = next(axes)
             ax.imshow((x_img.permute(1,2,0)), alpha=0.8) 
             im = ax.imshow(attr.cpu().numpy(), **kwargs, alpha=0.85)
-            if save_ax is not None:
-                img_temp = x_img.permute(1,2,0)
-                img_temp = (img_temp * 0.2 +  torch.ones_like(img_temp) * 0.8) * 0.8
-                attr_temp = attr.cpu().numpy() 
-                attr_temp /= attr_temp.max()
-                img_temp[:,:,0] = img_temp[:,:,0] + attr_temp * 0.2
-                title = save_ax[1].text(0.5,1.05,f"q:{quantile}", 
-                        size=plt.rcParams["axes.titlesize"],
-                        ha="center", transform=save_ax[1].transAxes, )
-                
-                title.set_bbox(dict(facecolor='yellow', alpha=1.0, edgecolor='black'))
-                save_im = save_ax[1].imshow(img_temp, alpha=1.0)
-                imgs.append([save_im, title])
-            else:
-                imgs.append(im)
-                
+            
             attrs.append(attr)
             gamma_hats = [] 
             betas = []
@@ -89,7 +74,7 @@ def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels
     ax.set_title("original")
     ax.set_xticks([])
     ax.set_yticks([])
-    return attrs, imgs 
+    return attrs 
 
 
 def alpha_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels, index, axes,  alphas, device, flags):

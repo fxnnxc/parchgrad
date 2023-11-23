@@ -1,13 +1,19 @@
 # Partitioned Channel Gradient for Reliable Input Attribution 
 
-
 <center>
 <img src="https://drive.google.com/uc?export=view&id=1kJwgA-XPdP0k3cd60R8H7jdqtgLbLJ44" width=500px > 
 </center>
 
+<img src="labs/visualize/797.gif">
+<img src="labs/visualize/7012.gif">
+<img src="labs/visualize/9359.gif">
+<img src="labs/visualize/16298.gif">
+<img src="labs/visualize/24152.gif">
+
 ## Tutorials 
 
 You can run [tutorials/parchgrad.ipynb](https://github.com/fxnnxc/parchgrad/blob/main/tutorials/parchgrad.ipynb). 
+
 
 ### Code Explanation 
 

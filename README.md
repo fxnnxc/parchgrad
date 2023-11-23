@@ -14,5 +14,10 @@ export encoder=resnet18
 bash shells/compute_stats.sh
 ```
 
+## Tutorials 
+
+You can run [tutorials/parchgrad.ipynb](https://github.com/fxnnxc/parchgrad/blob/main/tutorials/parchgrad.ipynb). 
+
+
 ## Computation of CLS p-values 
 

@@ -24,7 +24,6 @@ with open(os.path.join(save_dir, f"labels.pkl"), 'rb') as f:
 with open(os.path.join(save_dir, f"gap.pkl"), 'rb') as f:
     gaps = pickle.load(f)       
 
-
 shapiro_p_values = []
 for layer in tqdm(range(len(gaps))):
     num_channels = gaps[layer].shape[1]

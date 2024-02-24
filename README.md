@@ -1,6 +1,8 @@
 # Partitioned Channel Gradient for Reliable Input Attribution 
 *Bumjin Park, Giyeong Jeon, and Jaesik Choi, 2023* 
 
+✅ Please check the project page for the detailed description [project page](https://fxnnxc.github.io/main_papers/parchgrad/)
+
 <p align="center">
 <img align="center" src="https://drive.google.com/uc?export=view&id=1kJwgA-XPdP0k3cd60R8H7jdqtgLbLJ44" width=50% > 
 </p>

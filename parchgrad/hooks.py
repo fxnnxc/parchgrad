@@ -17,7 +17,8 @@ def general_forward_hook(module, input, output):
     
 
 import math 
-def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, variance_conservation=True, exact_variance=False, **kwargs):
+def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, variance_conservation=True, exact_variance=False, 
+                       gamma=None, additional_filtering=None, **kwargs):
     def backward_conv2d_hook(module, grad_inputs, grad_outputs):
         #modify gradient signals 
         if modify_gradient:
@@ -56,8 +57,23 @@ def make_backward_hook(modify_gradient, mask_function, gamma_infinity=True, vari
                                 beta = 1.0
                             grad_outputs[0][i,h_mask,:,:] *= gamma_hat * beta
                             grad_outputs[0][i,l_mask,:,:] *= beta
-            
+
         grad_inputs = [torch.nn.grad.conv2d_input(grad_inputs[0].shape, module.weight, grad_outputs[0],
                         stride=module.stride, padding=module.padding, dilation=module.dilation, groups=module.groups)]
         return grad_inputs
     return backward_conv2d_hook
+
+
+def make_guided_backward_hook():
+    def relu_hook_function(module, grad_in, grad_out):
+        if isinstance(module, torch.nn.ReLU):
+            relu_output = module.relu_output
+            relu_position = relu_output>0
+            return (torch.clamp(grad_in[0], min=0.)*relu_position,)
+    return relu_hook_function
+
+def make_guided_forward_hook():
+    def relu_hook_function(module, input, output):
+        if isinstance(module, torch.nn.ReLU):
+            module.relu_output = output
+    return relu_hook_function

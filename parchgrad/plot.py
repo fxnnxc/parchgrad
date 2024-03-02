@@ -47,6 +47,7 @@ def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels
                     exact_variance=flags.exact_variance,
                     gamma_infinity=flags.gamma_infinity,
                     enable_forward_hook=True if flags.method == 'ins' else False, 
+                    add_guided_backprop=flags.add_guided_backprop,
                     )
             attr = attr.cpu()
             attr, kwargs  = process_heatmap(attr, my_cmap)
@@ -65,7 +66,7 @@ def quantile_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels
             ax.set_xticks([])
             ax.set_yticks([])
             
-    attr = input_attrib(wrapper, x, y, modify_gradient=False)
+    attr = input_attrib(wrapper, x, y, modify_gradient=False, add_guided_backprop=flags.add_guided_backprop,)
     attr = attr.cpu()
     attr, kwargs  = process_heatmap(attr, my_cmap=my_cmap)
     ax = next(axes)
@@ -109,6 +110,7 @@ def alpha_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels, i
                     exact_variance=flags.exact_variance,
                     gamma_infinity=flags.gamma_infinity,
                     enable_forward_hook=True if flags.method == 'ins' else False, 
+                    add_guided_backprop=flags.add_guided_backprop
                     )
             attr = attr.cpu()
             attr, kwargs  = process_heatmap(attr, my_cmap)
@@ -125,7 +127,7 @@ def alpha_plot(wrapper, input_attrib, valid_dataset, valid_dataset_2,  labels, i
             ax.set_xticks([])
             ax.set_yticks([])
             
-    attr = input_attrib(wrapper, x, y, modify_gradient=False)
+    attr = input_attrib(wrapper, x, y, modify_gradient=False, add_guided_backprop=flags.add_guided_backprop,)
     attr = attr.cpu()
     attr, kwargs  = process_heatmap(attr, my_cmap=my_cmap)
     ax = next(axes)

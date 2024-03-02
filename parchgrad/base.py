@@ -1,4 +1,5 @@
-from parchgrad.hooks import general_forward_hook, make_backward_hook
+import torch 
+from parchgrad.hooks import general_forward_hook, make_backward_hook, make_guided_backward_hook, make_guided_forward_hook
 
 class ParchGradBase:
     def __init__(self, model, **kwargs):
@@ -19,7 +20,7 @@ class ParchGradBase:
             self.fw_hooks.pop().remove()
  
      
-    def _register_hook(self, modify_gradient, mask_function, enable_forward_hook=True, **kwargs):
+    def _register_hook(self, modify_gradient, mask_function, enable_forward_hook=True, add_guided_backprop=False, **kwargs):
         for conv in self.hook_modules:
             if enable_forward_hook:
                 self.fw_hooks.append(
@@ -34,7 +35,15 @@ class ParchGradBase:
                     )
                 )
             )
-            
+        if add_guided_backprop:
+            for i, module in enumerate(self.model.modules()):
+                if isinstance(module, torch.nn.ReLU):
+                    self.bw_hooks.append(module.register_backward_hook(make_guided_backward_hook()))
+                    self.fw_hooks.append(module.register_forward_hook(make_guided_forward_hook()))
+                        
+                        
+                        
+                        
     def set_hook_modules(self, modules, verbose=0, **kwargs):
         while len(self.hook_modules):
             self.hook_modules.pop()
@@ -53,7 +62,7 @@ class ParchGradBase:
         self._remove_hook()
         return output
  
-    def __call__(self, x, **kawrgs):
+    def __call__(self, x, **kwargs):
         return self.forward(x, **kwargs)
     
     

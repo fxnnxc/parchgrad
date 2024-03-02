@@ -30,6 +30,7 @@ parser.add_argument("--method", choices=['ins', 'cls', 'normal'])
 parser.add_argument("--device", default='cuda:0')
 parser.add_argument("--layer-ratio",  type=float)
 
+parser.add_argument("--guided-backprop", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True,)
 parser.add_argument("--alpha", default=None, type=float)
 parser.add_argument("--save-name", default="", type=str)
 parser.add_argument("--quantile", default=None, type=float)
@@ -42,8 +43,6 @@ args = parser.parse_args()
 base_dir = f'outputs/{args.encoder}'
 save_dir = os.path.join(base_dir, args.method, args.save_name, datetime.datetime.now().strftime("%m%d_%H%M%S") )
 
-if not os.path.exists(save_dir):
-    os.makedirs(save_dir)
 
 flags = OmegaConf.create(vars(args))
 flags.success = False 
@@ -52,6 +51,8 @@ if is_there_same_flag(base_dir, flags):
     print("[FAIL] There is success state with the exactly same flag")
     print("---------------------------------------------------------")
     exit()
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 OmegaConf.save(flags, os.path.join(save_dir, 'config.yaml'))
 print(flags)
 
@@ -94,6 +95,7 @@ for index in pbar:
                         exact_variance=flags.exact_variance,
                         gamma_infinity=flags.gamma_infinity,
                         enable_forward_hook=True if flags.method == 'ins' else False, 
+                        add_guided_backprop=flags.guided_backprop,
                         )
     
     img, info = ds[index]

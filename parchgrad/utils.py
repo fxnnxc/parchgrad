@@ -41,17 +41,18 @@ from tqdm import tqdm
 from omegaconf import OmegaConf
 
 def is_there_same_flag(base_dir, flag):
+    print("testing....")
     is_same_flag=False 
     for root, dirs, files in tqdm(os.walk(base_dir)):
         is_same_flag = True 
         if 'config.yaml' in files:
             loaded_flag = OmegaConf.load(os.path.join(root, 'config.yaml'))
-            if not loaded_flag.success: 
-                continue
+            # if not loaded_flag.success: 
+            #     continue
             for k, v in loaded_flag.items():
-                if k =="success":
-                    continue 
-                if k != "fixed_samples" and getattr(flag, k) != v:
+                # if k =="success":
+                #     continue 
+                if getattr(flag, k) != v:
                     is_same_flag = False 
             if is_same_flag:
                 return True 
